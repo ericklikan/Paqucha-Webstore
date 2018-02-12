@@ -9,7 +9,7 @@ import Tabs, {Tab} from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
-import Person from 'material-ui-icons/Person';
+import ShoppingCart from 'material-ui-icons/ShoppingCart';
 import Logo from './assets/logo.svg';
 import SmallLogo from './assets/logo_min.svg';
 import './App.css';
@@ -70,8 +70,8 @@ class App extends Component {
                         <Grid container spacing={0} alignItems={'center'} justify="space-between">
                           {isMobile && 
                             <Grid item xs={12} sm={1}>
-                              <IconButton color="inherit">
-                                <Person/>
+                              <IconButton color="inherit" href="/shopcart">
+                                <ShoppingCart/>
                               </IconButton>
                             </Grid>
                           }
@@ -95,15 +95,15 @@ class App extends Component {
                           </Grid>
                           {!isMobile && 
                             <Grid item xs={12} sm={1}>
-                              <IconButton color="inherit">
-                                <Person/>
+                              <IconButton color="inherit" href="/shopcart">
+                                <ShoppingCart/>
                               </IconButton>
                             </Grid>
                           }
                         </Grid>
                       </Toolbar>
                   </AppBar>
-                  <Route exact path="/" component={Home} test="this is a test"/>
+                  <Route exact path="/" component={Home}/>
                   <Route path="/about" component={About}/>
                   <Route path="/shop" component={Shop}/>
                   <Route path="/contact" component={Contact}/>
