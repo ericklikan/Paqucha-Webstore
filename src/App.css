@@ -36,15 +36,18 @@
   opacity: 0.9;
 }
 
-.tab{
-  font-size: 20em;
-  font-weight: bold;
-}
-
 .tab:hover{
   color:paleturquoise;
 }
 
+.pull-right{
+  float:right;
+}
+
 #tabs{
   background-color: royalblue;
+}
+
+@media screen and (max-width:767px){
+
 }

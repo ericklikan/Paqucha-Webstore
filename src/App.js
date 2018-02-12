@@ -7,7 +7,11 @@ import {
 import Grid from 'material-ui/Grid';
 import Tabs, {Tab} from 'material-ui/Tabs';
 import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+import Person from 'material-ui-icons/Person';
 import Logo from './assets/logo.svg';
+import SmallLogo from './assets/logo_min.svg';
 import './App.css';
 
 //Components:
@@ -18,20 +22,32 @@ import Contact from './components/Contact';
 
 class App extends Component {
   state = {
-    value:0
+    value:0,
+    width: window.innerWidth,
   };
 
   handleChange = (event,value) =>{
     this.setState({value});
   };
 
-  componentDidMount(){
+  handleResize = ()=>{
+    this.setState({width:window.innerWidth});
+  };
+
+  componentWillMount(){
     var tabs = ['/','/about','/shop','/contact'];
     this.setState({value:tabs.indexOf(window.location.pathname)});
   }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+  componentDidMount(){
+    window.addEventListener('resize', this.handleResize);
+  }
 
   render() {
-    const {value} = this.state;
+    const {value,width} = this.state;
+    const isMobile = width <= 600;
     return (
       <div className="App">
         <Grid container spacing={0} alignItems={'center'} justify="center">
@@ -42,7 +58,7 @@ class App extends Component {
               <Grid container spacing={0} alignItems={'center'} justify="center">
                 <Grid item xs={10} sm={6} lg={4} xl={3}>
                   <div id="title" justify="center">
-                    <img style={{width:"100%"}} src={Logo} alt=""/>
+                    <img style={{width:"100%"}} src={Logo} alt="Mountain"/>
                   </div>
                 </Grid>
                 </Grid>
@@ -50,19 +66,43 @@ class App extends Component {
               <Router>
                 <div>
                   <AppBar position="static" id="tabs">
-                    <Tabs 
-                    centered
-                    value={value} 
-                    onChange={this.handleChange}
-                    indicatorColor="white"
-                    fullWidth>
-                      <Tab className="tab" label="Home" component={Link} to="/"/>
-                      <Tab className="tab" label="About" component={Link} to="/about"/>
-                      <Tab className="tab" label="Shop" component={Link} to="/shop"/>
-                      <Tab className="tab" label="Contact" component={Link} to="/contact"/>
-                    </Tabs>
+                      <Toolbar>
+                        <Grid container spacing={0} alignItems={'center'} justify="space-between">
+                          {isMobile && 
+                            <Grid item xs={12} sm={1}>
+                              <IconButton color="inherit">
+                                <Person/>
+                              </IconButton>
+                            </Grid>
+                          }
+                          {!isMobile &&
+                          <Grid item xs={12} sm={1}>
+                            <img src={SmallLogo} style={{width:"32px",height:"32px"}} alt="small logo" />
+                          </Grid>
+                          }
+                          <Grid item xs={12} sm={8} md={8} lg={6}>
+                            <Tabs 
+                            centered
+                            value={value} 
+                            onChange={this.handleChange}
+                            indicatorColor="white"
+                            fullWidth>
+                              <Tab className="tab" label="Home" component={Link} to="/"/>
+                              <Tab className="tab" label="About" component={Link} to="/about"/>
+                              <Tab className="tab" label="Shop" component={Link} to="/shop"/>
+                              <Tab className="tab" label="Contact" component={Link} to="/contact"/>
+                            </Tabs>
+                          </Grid>
+                          {!isMobile && 
+                            <Grid item xs={12} sm={1}>
+                              <IconButton color="inherit">
+                                <Person/>
+                              </IconButton>
+                            </Grid>
+                          }
+                        </Grid>
+                      </Toolbar>
                   </AppBar>
-                  {this.props.location}
                   <Route exact path="/" component={Home} test="this is a test"/>
                   <Route path="/about" component={About}/>
                   <Route path="/shop" component={Shop}/>
