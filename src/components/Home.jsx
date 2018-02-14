@@ -4,7 +4,6 @@ import Grid from 'material-ui/Grid';
 class Home extends Component{
 
     render(){
-        console.log(this);
         return(
         <div>
             <Grid container spacing={0} justify="center" alignItems="flex-start">

@@ -12,7 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import ShoppingCart from 'material-ui-icons/ShoppingCart';
 import Logo from './assets/logo.svg';
 import SmallLogo from './assets/logo_min.svg';
-import './App.css';
+import './style/App.css';
 
 //Components:
 import Home from './components/Home';
